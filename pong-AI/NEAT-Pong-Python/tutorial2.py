@@ -121,14 +121,13 @@ def eval_genomes(genomes, config):
 
 
 def run_neat(config):
+    #comment first line when first run, comment second line if checkpoint needed     
     p = neat.Checkpointer.restore_checkpoint("neat-checkpoint-1")
     # p = neat.Population(config)
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(neat.Checkpointer(1))
-
-    # p.run(eval_genomes, 50)
 
     winner = p.run(eval_genomes, 1)
     with open("best pickle", "wb") as f:
@@ -152,5 +151,7 @@ if __name__ == "__main__":
 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
-    # run_neat(config)
+    
+    #comment run_neat if only testing ai
+    run_neat(config)
     test_ai(config)
